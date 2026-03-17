@@ -1,48 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sitio personal de Daniel Vélez, Desarrollador Web y Diseñador UI/UX. Próximamente.">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Sitio personal de Daniel Vélez, Desarrollador Web y Diseñador UI/UX.">
   <meta property="og:title" content="Daniel Vélez | Desarrollador Web">
-  <meta property="og:description" content="Construyendo algo increíble. Desarrollador Web y Diseñador UI/UX.">
-  <meta property="og:type" content="website">
   <title>Daniel Vélez | Desarrollador Web</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
+<body class="dark-theme">
+  <!-- Ruido Cinematográfico -->
+  <div class="noise-overlay"></div>
+  
+  <!-- Orb de Luz Interactiva -->
+  <div id="cursor-glow"></div>
 
-<body>
-  <div class="background-animation"></div>
+  <main class="hero-container">
+    <div class="glass-card magnetic-target">
+      <div class="card-content">
+        <header>
+          <div class="badge-wrapper anim-fade">
+            <span class="badge shimmer-effect">Próximamente</span>
+          </div>
+          <h1 class="reveal-text">Daniel Vélez</h1>
+          <p class="subtitle reveal-text">The Future of Web is Coming.</p>
+        </header>
 
-  <main class="glass-card">
-    <header>
-      <span class="badge">Próximamente</span>
-      <h1>Daniel Vélez</h1>
-      <p class="subtitle">Desarrollador Web & Diseñador UI/UX</p>
-    </header>
+        <section class="content anim-fade-up">
+          <p class="description">Construyendo algo asombroso. Ingresa tu correo para recibir acceso exclusivo el día del lanzamiento.</p>
+          
+          <form class="subscribe-form" id="notify-form">
+            <div class="input-wrapper">
+              <input type="email" id="email-input" placeholder="Tu correo principal" aria-label="Correo" required>
+            </div>
+            <button type="submit" class="magnetic-btn">
+              <span class="btn-text">Notificarme</span>
+              <div class="btn-highlight"></div>
+            </button>
+          </form>
+          <div id="success-msg" class="success-msg hidden">Te hemos añadido a la lista VIP. ✨</div>
+        </section>
 
-    <section class="content">
-      <p>Estoy construyendo algo increíble. Si te gustó el sitio de los paneles solares, espera a ver lo que viene.</p>
-
-      <form class="subscribe-form" id="notify-form">
-        <input type="email" id="email-input" placeholder="Tu correo electrónico" aria-label="Ingresa tu correo electrónico" required>
-        <button type="submit" aria-label="Botón para suscribirse y ser notificado">Notificarme</button>
-      </form>
-      <div id="success-msg" class="success-msg hidden">¡Gracias! Te avisaremos al lanzamiento. 🎉</div>
-    </section>
-
-    <footer>
-      <div class="social-links">
-        <a href="#" aria-label="Visitar perfil de LinkedIn">LinkedIn</a>
-        <a href="mailto:tu-correo@ejemplo.com" aria-label="Enviar correo electrónico a Daniel">Contacto</a>
-        <a href="#" aria-label="Visitar perfil de Instagram">Instagram</a>
+        <footer class="anim-fade-up">
+          <div class="social-links">
+            <a href="#" class="magnetic-link">LinkedIn</a>
+            <a href="#" class="magnetic-link">X (Twitter)</a>
+            <a href="#" class="magnetic-link">Instagram</a>
+          </div>
+        </footer>
       </div>
-    </footer>
+    </div>
   </main>
-
-  <script src="script.js"></script>
 </body>
-
 </html>

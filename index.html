@@ -3,57 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000">
-  <meta name="description" content="Sitio personal de Daniel Vélez, Desarrollador Web y Diseñador UI/UX.">
-  <meta property="og:title" content="Daniel Vélez | Desarrollador Web">
-  <title>Daniel Vélez | Desarrollador Web</title>
+  <meta name="theme-color" content="#070910">
+  <meta name="description" content="Portafolio futurista de Daniel Vélez: desarrollo web, UI interactiva y experiencias digitales modernas.">
+  <meta property="og:title" content="Daniel Vélez | Portafolio Futurista">
+  <title>Daniel Vélez | Portafolio Futurista</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
-<body class="dark-theme">
-  <!-- Ruido Cinematográfico -->
-  <div class="noise-overlay"></div>
-  
-  <!-- Orb de Luz Interactiva -->
-  <div id="cursor-glow"></div>
+<body>
+  <div class="bg-aurora" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
 
-  <main class="hero-container">
-    <div class="glass-card magnetic-target">
-      <div class="card-content">
-        <header>
-          <div class="badge-wrapper anim-fade">
-            <span class="badge shimmer-effect">Próximamente</span>
-          </div>
-          <h1 class="reveal-text">Daniel Vélez</h1>
-          <p class="subtitle reveal-text">The Future of Web is Coming.</p>
-        </header>
+  <main class="site-wrap">
+    <section class="hero section reveal">
+      <p class="eyebrow">Disponible para proyectos 2026</p>
+      <h1>Daniel Vélez <span>Crafting the Future of the Web</span></h1>
+      <p class="lead">Creo experiencias digitales de alto impacto con performance, animaciones fluidas y diseño centrado en producto.</p>
 
-        <section class="content anim-fade-up">
-          <p class="description">Construyendo algo asombroso. Ingresa tu correo para recibir acceso exclusivo el día del lanzamiento.</p>
-          
-          <form class="subscribe-form" id="notify-form">
-            <div class="input-wrapper">
-              <input type="email" id="email-input" placeholder="Tu correo principal" aria-label="Correo" required>
-            </div>
-            <button type="submit" class="magnetic-btn">
-              <span class="btn-text">Notificarme</span>
-              <div class="btn-highlight"></div>
-            </button>
-          </form>
-          <div id="success-msg" class="success-msg hidden">Te hemos añadido a la lista VIP. ✨</div>
-        </section>
-
-        <footer class="anim-fade-up">
-          <div class="social-links">
-            <a href="#" class="magnetic-link">LinkedIn</a>
-            <a href="#" class="magnetic-link">X (Twitter)</a>
-            <a href="#" class="magnetic-link">Instagram</a>
-          </div>
-        </footer>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary magnetic">Ver proyectos</a>
+        <a href="#contact" class="btn btn-ghost magnetic">Contactar</a>
       </div>
-    </div>
+    </section>
+
+    <section class="skills section reveal" id="skills">
+      <h2>Stack principal</h2>
+      <div class="chips">
+        <span class="chip magnetic">HTML5</span>
+        <span class="chip magnetic">CSS3</span>
+        <span class="chip magnetic">JavaScript</span>
+        <span class="chip magnetic">React</span>
+        <span class="chip magnetic">Node.js</span>
+        <span class="chip magnetic">UI/UX</span>
+        <span class="chip magnetic">GSAP</span>
+        <span class="chip magnetic">Figma</span>
+      </div>
+    </section>
+
+    <section class="projects section reveal" id="projects">
+      <h2>Proyectos destacados</h2>
+      <div class="project-grid">
+        <article class="project-card tilt-card magnetic">
+          <div class="project-media media-1"></div>
+          <h3>Nova Commerce</h3>
+          <p>E-commerce de nueva generación con animaciones de producto, UX optimizada y checkout ultrarrápido.</p>
+        </article>
+
+        <article class="project-card tilt-card magnetic">
+          <div class="project-media media-2"></div>
+          <h3>Pulse Analytics</h3>
+          <p>Dashboard interactivo en tiempo real con visualizaciones claras, filtros fluidos y enfoque en decisiones rápidas.</p>
+        </article>
+
+        <article class="project-card tilt-card magnetic">
+          <div class="project-media media-3"></div>
+          <h3>Orbit Studio</h3>
+          <p>Landing premium para marca creativa con narrativa visual, microinteracciones y métricas de conversión elevadas.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact section reveal" id="contact">
+      <h2>¿Lanzamos algo increíble?</h2>
+      <p>Déjame tu correo y te contacto con una propuesta estratégica en menos de 24 horas.</p>
+      <form id="notify-form" class="contact-form" novalidate>
+        <label class="sr-only" for="email-input">Correo electrónico</label>
+        <input id="email-input" type="email" placeholder="tu@correo.com" required>
+        <button type="submit" class="btn btn-primary magnetic">Enviar</button>
+      </form>
+      <p id="success-msg" class="success-msg" role="status" aria-live="polite"></p>
+    </section>
+
+    <footer class="section reveal footer">
+      <a href="#" class="magnetic">GitHub</a>
+      <a href="#" class="magnetic">LinkedIn</a>
+      <a href="#" class="magnetic">X / Twitter</a>
+    </footer>
   </main>
 </body>
 </html>

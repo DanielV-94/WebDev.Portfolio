@@ -54,8 +54,8 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: 50;
-  opacity: 0.45;
+  z-index: 60;
+  opacity: 0.18;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='1'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -104,27 +104,21 @@ body {
   position: fixed;
   inset: var(--frame-inset);
   pointer-events: none;
-  z-index: 40;
+  z-index: 55;
   border-radius: 4px;
+  /* Borde holográfico con outline usando box-shadow para no tapar el contenido */
+  box-shadow:
+    0 0 0 1.5px #ef00ff,
+    inset 0 0 0 1.5px #00ffff;
+  animation: holoFrameColor 6s linear infinite;
 }
 
 .holo-frame::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 6px;
-  background: var(--holo-gradient);
-  background-size: 300% 300%;
-  z-index: -1;
-  animation: holoRotate 6s linear infinite;
+  display: none;
 }
 
 .holo-frame::after {
-  content: "";
-  position: absolute;
-  inset: 1.5px;
-  background: var(--bg);
-  border-radius: 3px;
+  display: none;
 }
 
 @keyframes holoRotate {
@@ -137,6 +131,72 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
+
+@keyframes holoFrameColor {
+  0% {
+    box-shadow:
+      0 0 0 1.5px #96eeff,
+      inset 0 0 0 1.5px #ef00ff;
+  }
+  25% {
+    box-shadow:
+      0 0 0 1.5px #ef00ff,
+      inset 0 0 0 1.5px #ff008e;
+  }
+  50% {
+    box-shadow:
+      0 0 0 1.5px #ff008e,
+      inset 0 0 0 1.5px #6ebdf0;
+  }
+  75% {
+    box-shadow:
+      0 0 0 1.5px #6ebdf0,
+      inset 0 0 0 1.5px #00ffff;
+  }
+  100% {
+    box-shadow:
+      0 0 0 1.5px #96eeff,
+      inset 0 0 0 1.5px #ef00ff;
+  }
+}
+
+/* ---------- Barras holográficas superior e inferior ---------- */
+.holo-bar {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55vw;
+  height: 10px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 55;
+  background: linear-gradient(
+    90deg,
+    #96eeff 0%,
+    #c9b8ff 20%,
+    #f0b8ff 38%,
+    #ffd4f0 55%,
+    #fffacd 72%,
+    #b8f4ff 88%,
+    #96eeff 100%
+  );
+  background-size: 200% 100%;
+  animation: holoBarShift 4s linear infinite;
+  opacity: 0.92;
+}
+
+.holo-bar--top {
+  top: 8px;
+}
+
+.holo-bar--bottom {
+  bottom: 8px;
+}
+
+@keyframes holoBarShift {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
 }
 
 /* ---------- Cursor glow ---------- */
@@ -163,7 +223,7 @@ body {
 .sparkle {
   position: fixed;
   pointer-events: none;
-  z-index: 30;
+  z-index: 36;
   filter: drop-shadow(0 0 8px rgba(150, 238, 255, 0.6));
   animation: sparklePulse 3s ease-in-out infinite alternate;
 }
@@ -266,7 +326,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   padding: clamp(20px, 3vw, 48px) clamp(28px, 5vw, 72px);
-  z-index: 20;
+  z-index: 35;
   overflow: hidden;
 }
 

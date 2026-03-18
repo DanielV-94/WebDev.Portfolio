@@ -1,11 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="uuid-c9fe4051-ec2d-4899-b23d-a701a2c19357" xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 207.57 207.55">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 207.57 207.55">
   <defs>
     <style>
-      .uuid-8ea35dd8-f9d5-48de-9d9c-88883d7f2276 {
-        filter: url(#uuid-0edd3f4e-a97a-46b6-b385-02075727594b);
-      }
 
       .uuid-1dd6495b-e07a-4202-a520-692d81c975c1 {
         fill: #fff;
@@ -19,10 +14,6 @@
         stroke-miterlimit: 10;
       }
 
-      .uuid-4f718379-ef5a-45bf-915b-e0673a3a8028 {
-        filter: url(#uuid-19a334fe-642e-45a4-a32c-16b9ba455bdc);
-      }
-
       .uuid-4f718379-ef5a-45bf-915b-e0673a3a8028,
       .uuid-55667071-de92-42d2-bebd-91294d88297f {
         fill: #eb764b;
@@ -33,25 +24,9 @@
         stroke-width: 1.14px;
       }
     </style>
-    <filter id="uuid-0edd3f4e-a97a-46b6-b385-02075727594b" x="-30.12" y="-27.04" width="280" height="280"
-      filterUnits="userSpaceOnUse">
-      <feOffset dx="6" dy="9" />
-      <feGaussianBlur result="uuid-67c2dbf2-b8aa-4185-a870-2c6ac4c59e96" stdDeviation="12" />
-      <feFlood flood-color="#000" flood-opacity=".39" />
-      <feComposite in2="uuid-67c2dbf2-b8aa-4185-a870-2c6ac4c59e96" operator="in" />
-      <feComposite in="SourceGraphic" />
-    </filter>
-    <filter id="uuid-19a334fe-642e-45a4-a32c-16b9ba455bdc" x="13.29" y="13.37" width="188" height="189"
-      filterUnits="userSpaceOnUse">
-      <feOffset dx="2.79" dy="3.72" />
-      <feGaussianBlur result="uuid-8c3b95c8-aee9-4417-8ec5-70dcab51f53f" stdDeviation="1.86" />
-      <feFlood flood-color="#000" flood-opacity=".5" />
-      <feComposite in2="uuid-8c3b95c8-aee9-4417-8ec5-70dcab51f53f" operator="in" />
-      <feComposite in="SourceGraphic" />
-    </filter>
   </defs>
   <g id="uuid-04e03cd0-9e67-4b09-8e0f-29e641b52280">
-    <g class="uuid-8ea35dd8-f9d5-48de-9d9c-88883d7f2276">
+    <g>
       <circle class="uuid-4f718379-ef5a-45bf-915b-e0673a3a8028" cx="103.79" cy="103.79" r="87.65"
         transform="translate(-42.99 103.79) rotate(-45)" />
       <circle class="uuid-6e2511c0-5969-4187-b117-3274d2527c92" cx="103.79" cy="103.79" r="87.65"

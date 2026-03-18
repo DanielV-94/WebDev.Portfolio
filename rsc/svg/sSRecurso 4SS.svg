@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="uuid-655236fa-fd2a-44ba-8965-e804f75c08b3" xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 207.57 207.55">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 207.57 207.55">
   <defs>
     <style>
       .uuid-fee60e38-68e6-42b0-8303-3f7f7bad5b1f {
@@ -24,34 +22,10 @@
       .uuid-5a618503-e2f9-46af-b3e3-38dc1f24c112 {
         fill: #eb764b;
       }
-
-      .uuid-5a618503-e2f9-46af-b3e3-38dc1f24c112 {
-        filter: url(#uuid-7df589ad-6cb2-4e03-aaa5-488b33197468);
-      }
-
-      .uuid-303a8d54-680f-4068-931c-83b774ab0839 {
-        filter: url(#uuid-6f743a89-e32b-41b3-a0d8-c3bf6864a7a6);
-      }
     </style>
-    <filter id="uuid-6f743a89-e32b-41b3-a0d8-c3bf6864a7a6" x="-30.12" y="-27.04" width="280" height="280"
-      filterUnits="userSpaceOnUse">
-      <feOffset dx="6" dy="9" />
-      <feGaussianBlur result="uuid-08d0525c-e0b8-47b7-b7bd-8298e186b3f3" stdDeviation="12" />
-      <feFlood flood-color="#000" flood-opacity=".39" />
-      <feComposite in2="uuid-08d0525c-e0b8-47b7-b7bd-8298e186b3f3" operator="in" />
-      <feComposite in="SourceGraphic" />
-    </filter>
-    <filter id="uuid-7df589ad-6cb2-4e03-aaa5-488b33197468" x="13.29" y="13.37" width="188" height="189"
-      filterUnits="userSpaceOnUse">
-      <feOffset dx="2.79" dy="3.72" />
-      <feGaussianBlur result="uuid-8324d74f-6455-4f1d-8888-05dd89d18c13" stdDeviation="1.86" />
-      <feFlood flood-color="#000" flood-opacity=".5" />
-      <feComposite in2="uuid-8324d74f-6455-4f1d-8888-05dd89d18c13" operator="in" />
-      <feComposite in="SourceGraphic" />
-    </filter>
   </defs>
   <g id="uuid-ce74c6c6-fafa-46f8-b473-d4596162a57a">
-    <g class="uuid-303a8d54-680f-4068-931c-83b774ab0839">
+    <g>
       <circle class="uuid-5a618503-e2f9-46af-b3e3-38dc1f24c112" cx="103.79" cy="103.79" r="87.65"
         transform="translate(-42.99 103.79) rotate(-45)" />
       <circle class="uuid-13b12ce7-d556-47af-82b4-e0900fa5c672" cx="103.79" cy="103.79" r="87.65"

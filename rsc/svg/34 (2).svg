@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="uuid-0aeaeb15-db79-4785-a5c0-56bd7f4df77f" xmlns="http://www.w3.org/2000/svg"
+<svg xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 230 94.94">
   <defs>
     <style>
@@ -13,10 +12,6 @@
 
       .uuid-5d38b7cb-c273-4a88-a3c9-d0fc3d6fb122 {
         fill: url(#uuid-26ee95bc-9112-455c-98ea-29f67fb0a2fa);
-      }
-
-      .uuid-4ab9deb8-83d9-4db6-98e5-f08d0621c5a2 {
-        filter: url(#uuid-dea65a7c-2a2e-4ca7-9be3-2a8179efc339);
       }
 
       .uuid-c92adeeb-8f22-471f-baa8-7dd59023001d {
@@ -57,14 +52,6 @@
         fill: url(#uuid-f5bb6c58-bca4-4bbd-b265-3ad182c32f47);
       }
     </style>
-    <filter id="uuid-dea65a7c-2a2e-4ca7-9be3-2a8179efc339" x="-30.16" y="-27.04" width="302.4" height="167.04"
-      filterUnits="userSpaceOnUse">
-      <feOffset dx="6" dy="9" />
-      <feGaussianBlur result="uuid-dbd6e606-e67e-4bec-a621-51077d0cbb6f" stdDeviation="12" />
-      <feFlood flood-color="#000" flood-opacity=".47" />
-      <feComposite in2="uuid-dbd6e606-e67e-4bec-a621-51077d0cbb6f" operator="in" />
-      <feComposite in="SourceGraphic" />
-    </filter>
     <linearGradient id="uuid-15c9c9a5-aa45-420c-9c3b-20f376ceb7e0" x1="220.25" y1="74.95" x2="12.03" y2="-58.27"
       gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#00e6ff" />

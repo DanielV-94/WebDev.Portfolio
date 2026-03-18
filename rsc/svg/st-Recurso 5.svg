@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="uuid-0d239586-afb5-4aa9-9a3d-16928337c5ac" xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 124.82 124.82">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124.82 124.82">
   <defs>
     <style>
       .uuid-b9d877f0-7f21-45e8-bc74-aa2107329d2d {
@@ -14,22 +12,10 @@
         font-weight: 800;
       }
 
-      .uuid-650a6434-60e4-4c18-91a1-a99d9143d22a {
-        filter: url(#uuid-b9c778a4-8b7f-41d8-8668-393a06f05547);
-      }
-
       .uuid-08ab89c7-e4fa-475c-8827-5419f45946f0 {
         fill: url(#uuid-9e27b262-3308-4b95-ab65-d409356f986e);
       }
     </style>
-    <filter id="uuid-b9c778a4-8b7f-41d8-8668-393a06f05547" x="-30.49" y="-27.06" width="198" height="197"
-      filterUnits="userSpaceOnUse">
-      <feOffset dx="6" dy="9" />
-      <feGaussianBlur result="uuid-1bfa8cd7-81dd-49ee-893a-683716c1b01d" stdDeviation="12" />
-      <feFlood flood-color="#000" flood-opacity=".47" />
-      <feComposite in2="uuid-1bfa8cd7-81dd-49ee-893a-683716c1b01d" operator="in" />
-      <feComposite in="SourceGraphic" />
-    </filter>
     <linearGradient id="uuid-9e27b262-3308-4b95-ab65-d409356f986e" x1="14.12" y1="114.45" x2="108.16" y2="13.11"
       gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#96eeff" />
@@ -40,7 +26,7 @@
     </linearGradient>
   </defs>
   <g id="uuid-d503165d-2295-484b-9ece-d4c43b89fb94">
-    <g class="uuid-650a6434-60e4-4c18-91a1-a99d9143d22a">
+    <g>
       <path
         d="M51.15,124.45c-1.73,0-3.13-1.4-3.13-3.13v-24.16l-17.08,17.08c-.59.59-1.38.92-2.21.92s-1.63-.33-2.21-.92l-15.93-15.93c-1.22-1.22-1.22-3.2,0-4.43l17.08-17.08H3.51c-1.73,0-3.13-1.4-3.13-3.13v-22.52c0-1.73,1.4-3.13,3.13-3.13h24.16L10.58,30.93c-1.22-1.22-1.22-3.2,0-4.43l15.93-15.93c.59-.59,1.38-.92,2.21-.92s1.63.33,2.21.92l17.08,17.08V3.51c0-1.73,1.4-3.13,3.13-3.13h22.52c1.73,0,3.13,1.4,3.13,3.13v24.16l17.08-17.08c.61-.61,1.41-.92,2.21-.92s1.6.31,2.21.92l15.93,15.93c1.22,1.22,1.22,3.2,0,4.43l-17.08,17.08h24.16c1.73,0,3.13,1.4,3.13,3.13v22.52c0,1.73-1.4,3.13-3.13,3.13h-24.16l17.08,17.08c1.22,1.22,1.22,3.2,0,4.43l-15.93,15.93c-.61.61-1.41.92-2.21.92s-1.6-.31-2.21-.92l-17.08-17.08v24.16c0,1.73-1.4,3.13-3.13,3.13h-22.52Z" />
       <path class="uuid-b9d877f0-7f21-45e8-bc74-aa2107329d2d"

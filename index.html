@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#070910">
   <meta name="description"
-    content="Portafolio futurista de Daniel Vélez: desarrollo web, UI interactiva y experiencias digitales modernas.">
-  <meta property="og:title" content="Daniel Vélez | Portafolio Futurista">
-  <title>Daniel Vélez | Portafolio Futurista</title>
+    content="Daniel Vélez — sitio oficial en modo próximamente. Estamos preparando una experiencia web futurista.">
+  <meta property="og:title" content="Daniel Vélez | Próximamente">
+  <title>Daniel Vélez | Próximamente</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -25,73 +25,30 @@
   <div id="cursor-glow" aria-hidden="true"></div>
 
   <main class="site-wrap">
-    <section class="hero section reveal">
-      <p class="eyebrow">Disponible para proyectos 2026</p>
-      <h1>Daniel Vélez <span>Crafting the Future of the Web</span></h1>
-      <p class="lead">Creo experiencias digitales de alto impacto con performance, animaciones fluidas y diseño centrado
-        en producto.</p>
+    <section class="hero section reveal" aria-labelledby="coming-title">
+      <p class="eyebrow">Sitio en construcción</p>
+      <h1 id="coming-title">Daniel Vélez <span>Próximamente: una experiencia web fuera de órbita</span></h1>
+      <p class="lead">Estamos construyendo el portafolio final con una identidad visual totalmente nueva. Déjame tu
+        correo y serás de los primeros en verlo cuando esté listo.</p>
 
-      <div class="hero-actions">
-        <a href="#projects" class="btn btn-primary magnetic">Ver proyectos</a>
-        <a href="#contact" class="btn btn-ghost magnetic">Contactar</a>
+      <div class="status-row" aria-label="Estado del proyecto">
+        <span class="chip magnetic" role="status">Diseño final en progreso</span>
+        <span class="chip magnetic" role="status">Lanzamiento 2026</span>
       </div>
-    </section>
 
-    <section class="skills section reveal" id="skills">
-      <h2>Stack principal</h2>
-      <div class="chips">
-        <span class="chip magnetic">HTML5</span>
-        <span class="chip magnetic">CSS3</span>
-        <span class="chip magnetic">JavaScript</span>
-        <span class="chip magnetic">React</span>
-        <span class="chip magnetic">Node.js</span>
-        <span class="chip magnetic">UI/UX</span>
-        <span class="chip magnetic">GSAP</span>
-        <span class="chip magnetic">Figma</span>
-      </div>
-    </section>
-
-    <section class="projects section reveal" id="projects">
-      <h2>Proyectos destacados</h2>
-      <div class="project-grid">
-        <article class="project-card tilt-card magnetic">
-          <div class="project-media media-1"></div>
-          <h3>Nova Commerce</h3>
-          <p>E-commerce de nueva generación con animaciones de producto, UX optimizada y checkout ultrarrápido.</p>
-        </article>
-
-        <article class="project-card tilt-card magnetic">
-          <div class="project-media media-2"></div>
-          <h3>Pulse Analytics</h3>
-          <p>Dashboard interactivo en tiempo real con visualizaciones claras, filtros fluidos y enfoque en decisiones
-            rápidas.</p>
-        </article>
-
-        <article class="project-card tilt-card magnetic">
-          <div class="project-media media-3"></div>
-          <h3>Orbit Studio</h3>
-          <p>Landing premium para marca creativa con narrativa visual, microinteracciones y métricas de conversión
-            elevadas.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="contact section reveal" id="contact">
-      <h2>¿Lanzamos algo increíble?</h2>
-      <p>Déjame tu correo y te contacto con una propuesta estratégica en menos de 24 horas.</p>
       <form id="notify-form" class="contact-form" novalidate>
         <label class="sr-only" for="email-input">Correo electrónico</label>
         <input id="email-input" type="email" placeholder="tu@correo.com" required>
-        <button type="submit" class="btn btn-primary magnetic">Enviar</button>
+        <button type="submit" class="btn btn-primary magnetic">Notificarme</button>
       </form>
       <p id="success-msg" class="success-msg" role="status" aria-live="polite"></p>
-    </section>
 
-    <footer class="section reveal footer">
-      <a href="#" class="magnetic">GitHub</a>
-      <a href="#" class="magnetic">LinkedIn</a>
-      <a href="#" class="magnetic">X / Twitter</a>
-    </footer>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-ghost magnetic">LinkedIn</a>
+        <a href="#" class="btn btn-ghost magnetic">GitHub</a>
+        <a href="#" class="btn btn-ghost magnetic">X / Twitter</a>
+      </div>
+    </section>
   </main>
 </body>
 

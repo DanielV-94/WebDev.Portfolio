@@ -1,14 +1,14 @@
 # WebDev.Portfolio
 
-Rediseño visual completo estilo **futurista / 2026 trend** para la landing personal de Daniel Vélez.
+Landing **Próximamente** de Daniel Vélez con diseño futurista en tendencia 2026.
 
 ## Incluye
 
 - Estética dark con gradientes aurora y glassmorphism.
-- Secciones: hero, stack, proyectos, contacto y footer.
-- Animaciones de entrada por scroll.
-- Efectos hover magnéticos y tilt 3D en cards.
-- Glow de cursor y estados accesibles para focus/reduced motion.
+- Mensaje central de "sitio en construcción".
+- Formulario de notificación por correo.
+- Efectos hover magnéticos y glow de cursor.
+- Animaciones de entrada y soporte `prefers-reduced-motion`.
 
 ## Vista previa local
 

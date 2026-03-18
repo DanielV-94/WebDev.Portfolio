@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(updateGlow);
   };
 
-  if (!prefersReducedMotion) {
+  if (!prefersReducedMotion && glow) {
     updateGlow();
     document.addEventListener("mousemove", (event) => {
       mouseX = event.clientX;
@@ -68,31 +68,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const tiltCards = document.querySelectorAll(".tilt-card");
-  tiltCards.forEach((card) => {
-    card.addEventListener("mousemove", (event) => {
-      if (prefersReducedMotion) {
-        return;
-      }
-
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width;
-      const y = (event.clientY - rect.top) / rect.height;
-      const rotateY = (x - 0.5) * 10;
-      const rotateX = (0.5 - y) * 8;
-
-      card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-2px)`;
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.transform =
-        "perspective(900px) rotateX(0) rotateY(0) translateY(0)";
-    });
-  });
-
   const form = document.getElementById("notify-form");
   const emailInput = document.getElementById("email-input");
   const successMsg = document.getElementById("success-msg");
+
+  if (!form || !emailInput || !successMsg) {
+    return;
+  }
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -104,7 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    successMsg.textContent = "¡Perfecto! Te escribiré en menos de 24 horas 🚀";
+    successMsg.textContent =
+      "¡Listo! Te avisaré cuando publiquemos el sitio final 🚀";
     successMsg.style.color = "#6fffc4";
     form.reset();
   });

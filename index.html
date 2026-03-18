@@ -4,51 +4,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#070910">
-  <meta name="description"
-    content="Daniel Vélez — sitio oficial en modo próximamente. Estamos preparando una experiencia web futurista.">
-  <meta property="og:title" content="Daniel Vélez | Próximamente">
-  <title>Daniel Vélez | Próximamente</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap"
-    rel="stylesheet">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Daniel Vélez — Programación Web · Diseño UX/UI · Motion Graphics. Muy pronto 2026.">
+  <meta property="og:title" content="Daniel Vélez | Muy Pronto 2026">
+  <title>Daniel Vélez | Muy Pronto 2026</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 
 <body>
-  <div class="bg-aurora" aria-hidden="true"></div>
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Textura de película / grano -->
+  <div class="film-grain" aria-hidden="true"></div>
+
+  <!-- Marco holográfico -->
+  <div class="holo-frame" aria-hidden="true"></div>
+
+  <!-- Cursor glow -->
   <div id="cursor-glow" aria-hidden="true"></div>
 
+  <!-- Estrellas sparkle decorativas -->
+  <!-- Esquina superior izquierda - grande -->
+  <img class="sparkle sp-tl-lg" src="rsc/svg/sparkle-lg.svg" alt="" aria-hidden="true">
+  <!-- Esquina superior derecha - grande -->
+  <img class="sparkle sp-tr-lg" src="rsc/svg/sparkle-lg.svg" alt="" aria-hidden="true">
+  <!-- Esquina inferior izquierda - mediana -->
+  <img class="sparkle sp-bl-md" src="rsc/svg/sparkle-sm.svg" alt="" aria-hidden="true">
+  <!-- Esquina inferior derecha - mediana -->
+  <img class="sparkle sp-br-md" src="rsc/svg/sparkle-sm.svg" alt="" aria-hidden="true">
+  <!-- Centro derecha - pequeña -->
+  <img class="sparkle sp-cr-sm" src="rsc/svg/sparkle-sm.svg" alt="" aria-hidden="true">
+  <!-- Centro izquierda - pequeña -->
+  <img class="sparkle sp-cl-sm" src="rsc/svg/sparkle-sm.svg" alt="" aria-hidden="true">
+  <!-- Arriba centro - extra pequeña -->
+  <img class="sparkle sp-tc-xs" src="rsc/svg/sparkle-sm.svg" alt="" aria-hidden="true">
+  <!-- Abajo centro derecha - extra pequeña -->
+  <img class="sparkle sp-bc-xs" src="rsc/svg/sparkle-sm.svg" alt="" aria-hidden="true">
+
   <main class="site-wrap">
-    <section class="hero section reveal" aria-labelledby="coming-title">
-      <p class="eyebrow">Sitio en construcción</p>
-      <h1 id="coming-title">Daniel Vélez <span>Próximamente: una experiencia web fuera de órbita</span></h1>
-      <p class="lead">Estamos construyendo el portafolio final con una identidad visual totalmente nueva. Déjame tu
-        correo y serás de los primeros en verlo cuando esté listo.</p>
 
-      <div class="status-row" aria-label="Estado del proyecto">
-        <span class="chip magnetic" role="status">Diseño final en progreso</span>
-        <span class="chip magnetic" role="status">Lanzamiento 2026</span>
+    <!-- Nombre principal -->
+    <h1 class="name-display" aria-label="Daniel Velez">
+      <span class="name-line">DANIEL</span>
+      <span class="name-line">VELEZ</span>
+    </h1>
+
+    <!-- Tira inferior -->
+    <footer class="bottom-strip">
+      <div class="coming-block">
+        <span class="coming-label">MUY PRONTO</span>
+        <span class="coming-year">2026</span>
       </div>
 
-      <form id="notify-form" class="contact-form" novalidate>
-        <label class="sr-only" for="email-input">Correo electrónico</label>
-        <input id="email-input" type="email" placeholder="tu@correo.com" required>
-        <button type="submit" class="btn btn-primary magnetic">Notificarme</button>
-      </form>
-      <p id="success-msg" class="success-msg" role="status" aria-live="polite"></p>
-
-      <div class="hero-actions">
-        <a href="#" class="btn btn-ghost magnetic">LinkedIn</a>
-        <a href="#" class="btn btn-ghost magnetic">GitHub</a>
-        <a href="#" class="btn btn-ghost magnetic">X / Twitter</a>
+      <div class="center-block">
+        <p class="services-list">PROGRAMACION WEB / DISEÑO UX / UI / MOTION GRAPHICS / Y MAS....</p>
+        <a href="mailto:contacto@danielvelez.dev" class="btn-contacto magnetic">CONTACTO</a>
+        <p id="success-msg" class="success-msg sr-only" role="status" aria-live="polite"></p>
       </div>
-    </section>
+
+      <div class="social-block">
+        <a href="#" class="social-link">LI</a>
+        <a href="#" class="social-link">GH</a>
+        <a href="#" class="social-link">IG</a>
+      </div>
+    </footer>
+
   </main>
 </body>
 

@@ -3,92 +3,59 @@ document.addEventListener("DOMContentLoaded", () => {
     "(prefers-reduced-motion: reduce)",
   ).matches;
 
-  const revealElements = document.querySelectorAll(".reveal");
-  if (!prefersReducedMotion) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) {
-            return;
-          }
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.15 },
-    );
-
-    revealElements.forEach((el) => observer.observe(el));
-  } else {
-    revealElements.forEach((el) => el.classList.add("is-visible"));
-  }
-
+  /* ── Cursor glow LERP ── */
   const glow = document.getElementById("cursor-glow");
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let currentX = mouseX;
-  let currentY = mouseY;
-
-  const updateGlow = () => {
-    currentX += (mouseX - currentX) * 0.09;
-    currentY += (mouseY - currentY) * 0.09;
-    glow.style.left = `${currentX}px`;
-    glow.style.top = `${currentY}px`;
-    requestAnimationFrame(updateGlow);
-  };
-
   if (!prefersReducedMotion && glow) {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = mouseX;
+    let currentY = mouseY;
+
+    const updateGlow = () => {
+      currentX += (mouseX - currentX) * 0.08;
+      currentY += (mouseY - currentY) * 0.08;
+      glow.style.left = `${currentX}px`;
+      glow.style.top = `${currentY}px`;
+      requestAnimationFrame(updateGlow);
+    };
     updateGlow();
-    document.addEventListener("mousemove", (event) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
+
+    document.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
       glow.style.opacity = "1";
     });
+
     document.addEventListener("mouseleave", () => {
       glow.style.opacity = "0";
     });
   }
 
+  /* ── Magnetic hover ── */
   const magneticItems = document.querySelectorAll(".magnetic");
   magneticItems.forEach((item) => {
-    item.addEventListener("mousemove", (event) => {
-      if (prefersReducedMotion) {
-        return;
-      }
-
+    item.addEventListener("mousemove", (e) => {
+      if (prefersReducedMotion) return;
       const rect = item.getBoundingClientRect();
-      const offsetX = event.clientX - (rect.left + rect.width / 2);
-      const offsetY = event.clientY - (rect.top + rect.height / 2);
-
-      item.style.transform = `translate(${offsetX * 0.12}px, ${offsetY * 0.12}px)`;
+      const offsetX = e.clientX - (rect.left + rect.width / 2);
+      const offsetY = e.clientY - (rect.top + rect.height / 2);
+      item.style.transform = `translate(${offsetX * 0.14}px, ${offsetY * 0.14}px)`;
     });
-
     item.addEventListener("mouseleave", () => {
       item.style.transform = "translate(0, 0)";
     });
   });
 
-  const form = document.getElementById("notify-form");
-  const emailInput = document.getElementById("email-input");
-  const successMsg = document.getElementById("success-msg");
-
-  if (!form || !emailInput || !successMsg) {
-    return;
+  /* ── Sparkle parallax sutil al mover el cursor ── */
+  if (!prefersReducedMotion) {
+    const sparkles = document.querySelectorAll(".sparkle");
+    document.addEventListener("mousemove", (e) => {
+      const cx = e.clientX / window.innerWidth - 0.5;
+      const cy = e.clientY / window.innerHeight - 0.5;
+      sparkles.forEach((sp, i) => {
+        const depth = ((i % 3) + 1) * 4;
+        sp.style.transform += ` translate(${cx * depth}px, ${cy * depth}px)`;
+      });
+    });
   }
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    if (!emailInput.checkValidity()) {
-      successMsg.textContent = "Ingresa un correo válido para continuar.";
-      successMsg.style.color = "#ff9db5";
-      emailInput.focus();
-      return;
-    }
-
-    successMsg.textContent =
-      "¡Listo! Te avisaré cuando publiquemos el sitio final 🚀";
-    successMsg.style.color = "#6fffc4";
-    form.reset();
-  });
 });

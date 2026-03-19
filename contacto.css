@@ -492,10 +492,8 @@
   opacity: 1;
   will-change: transform, opacity;
 }
-/* GSAP sobreescribe a opacity:0 antes de animar — ver contacto.js */
-.js-animate {
-  opacity: 0;
-}
+/* GSAP pone opacity:0 vía gsap.set() en contacto.js antes de animar.
+   Si GSAP no carga, los elementos quedan visibles (opacity:1 arriba). */
 
 /* ================================================================
    MEDIA QUERIES — RESPONSIVE

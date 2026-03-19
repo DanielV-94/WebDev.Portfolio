@@ -1,0 +1,681 @@
+﻿/* ===========================================================
+   Contacto — Daniel Vélez Portfolio
+   ============================================================ */
+
+@font-face {
+  font-family: "Pizalio";
+  src: url("rsc/pizalio-font/pizalio.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: block;
+}
+
+/* ── Reset página ─────────────────────────────────────── */
+.contacto-page {
+  overflow: hidden;
+  height: 100dvh;
+  cursor: default;
+}
+
+/* ── Grid de profundidad ─────────────────────────────── */
+.depth-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Perspectiva 3D falsa: dos grids superpuestos a diferente escala */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+  background-size:
+    80px 80px,
+    80px 80px,
+    20px 20px,
+    20px 20px;
+  /* Punto de fuga central: da sensación de que el grid "cae" hacia el horizonte */
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 75% at 50% 50%,
+    black 30%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 75% at 50% 50%,
+    black 30%,
+    transparent 100%
+  );
+  animation: gridPulse 8s ease-in-out infinite;
+}
+@keyframes gridPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ── Capa de stickers ────────────────────────────────── */
+#stickers-layer {
+  position: fixed;
+  inset: 0;
+  /* Siempre sobre TODO el contenido — el usuario tiene que moverlos */
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.sticker {
+  position: absolute;
+  /* Los tamaños en el HTML se multiplican ×1.9 via JS; este es el fallback */
+  width: var(--sz, 180px);
+  height: var(--sz, 180px);
+  pointer-events: auto;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform, filter;
+  z-index: 1000;
+  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.75))
+    drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  transition: filter 0.2s ease;
+}
+.sticker img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  display: block;
+}
+
+/* Estado: siendo arrastrado */
+.sticker.is-dragging {
+  cursor: grabbing;
+  z-index: 9999 !important;
+  filter: drop-shadow(0 0 28px rgba(150, 238, 255, 0.85))
+    drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))
+    drop-shadow(0 18px 50px rgba(0, 0, 0, 0.9));
+}
+
+/* Estado: recién soltado (inertia) */
+.sticker.was-released {
+  filter: drop-shadow(0 0 14px rgba(150, 238, 255, 0.45))
+    drop-shadow(0 8px 32px rgba(0, 0, 0, 0.8));
+}
+
+/* ── Main layout ─────────────────────────────────────── */
+.contact-main {
+  position: relative;
+  z-index: 20; /* Los stickers (z:1000) siempre flotan encima */
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-columns: 1fr;
+  padding: clamp(24px, 4vw, 56px) clamp(24px, 6vw, 80px);
+  gap: clamp(16px, 2.5vh, 32px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  /* pointer-events activo para que el scroll funcione */
+  pointer-events: auto;
+}
+
+/* ── Botón volver ────────────────────────────────────── */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(12px, 1.2vw, 15px);
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+  width: fit-content;
+}
+.btn-back:hover {
+  color: #96eeff;
+}
+.btn-back svg {
+  opacity: 0.7;
+}
+
+/* ── Hero / invitación ───────────────────────────────── */
+.contact-hero {
+  max-width: 680px;
+}
+
+.contact-eyebrow {
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(13px, 1.4vw, 18px);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.61);
+  margin-bottom: 16px;
+}
+
+.contact-title {
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(64px, 11vw, 148px);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+
+.contact-title--holo {
+  background: var(--holo-gradient);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: holoShift 4s ease infinite;
+}
+
+.contact-body {
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(16px, 1.6vw, 22px);
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 580px;
+}
+.contact-body strong {
+  color: rgba(255, 255, 255, 1);
+  font-weight: 600;
+}
+
+/* ── Grid doble columna ──────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+
+/* ── Títulos de sección ──────────────────────────────── */
+.contact-section-title {
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(12px, 1.1vw, 15px);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.57);
+  margin-bottom: 24px;
+}
+
+/* ── Items de contacto ───────────────────────────────────── */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px 28px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 22px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+  color: #fff;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+/* shimmer al hover */
+.contact-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(150, 238, 255, 0.06) 50%,
+    transparent 60%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.contact-item:hover::before {
+  transform: translateX(100%);
+}
+.contact-item:hover {
+  background: rgba(150, 238, 255, 0.1);
+  border-color: rgba(150, 238, 255, 0.35);
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 24px rgba(150, 238, 255, 0.08),
+    inset 0 1px 0 rgba(150, 238, 255, 0.15);
+}
+
+.contact-item__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.89);
+}
+.contact-item__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.contact-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.contact-item__label {
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(9px, 0.8vw, 11px);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.66);
+}
+.contact-item__value {
+  font-family: "Pizalio", sans-serif;
+  font-size: clamp(28px, 3.2vw, 48px);
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+.contact-item__arrow {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.2);
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.contact-item:hover .contact-item__arrow {
+  color: #96eeff;
+  transform: translate(3px, -3px);
+}
+
+/* ── Formulario de notificación ──────────────────────── */
+.contact-notify {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 28px 28px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.contact-notify__text {
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+
+.notify-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.notify-form__field {
+  position: relative;
+}
+.notify-form__field input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 20px 20px 10px;
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: #fff;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+  caret-color: #96eeff;
+}
+.notify-form__field input:focus {
+  border-color: rgba(150, 238, 255, 0.5);
+  background: rgba(150, 238, 255, 0.05);
+}
+.notify-form__field label {
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  transform: translateY(-50%);
+  font-family: "Pronell", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+  transition:
+    top 0.2s ease,
+    font-size 0.2s ease,
+    color 0.2s ease;
+}
+.notify-form__field input:focus + label,
+.notify-form__field input:not(:placeholder-shown) + label {
+  top: 10px;
+  font-size: 8px;
+  color: #96eeff;
+  transform: none;
+}
+/* placeholder oculto visualmente (se usa solo para el selector :not(:placeholder-shown)) */
+.notify-form__field input::placeholder {
+  color: transparent;
+}
+
+.notify-form__btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 24px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(13px, 1.2vw, 16px);
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.notify-form__btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--holo-gradient);
+  background-size: 300% 300%;
+  animation: holoShift 4s ease infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.notify-form__btn:hover::before {
+  opacity: 0.12;
+}
+.notify-form__btn:hover {
+  border-color: rgba(150, 238, 255, 0.4);
+  color: #fff;
+}
+.notify-form__btn .btn-text,
+.notify-form__btn .btn-icon {
+  position: relative;
+  z-index: 1;
+}
+.notify-form__btn .btn-icon {
+  font-size: 18px;
+}
+
+.notify-form__success {
+  font-family: "Pronell", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: #6ef0a4;
+  min-height: 18px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+.notify-form__success.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+.contact-footer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(9px, 0.85vw, 11px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+}
+.contact-footer__sep {
+  opacity: 0.5;
+}
+
+/* ── Entrada animada ─────────────────────────────────── */
+.contact-hero,
+.contact-grid,
+.contact-footer,
+.btn-back {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* ================================================================
+   MEDIA QUERIES — RESPONSIVE
+   ================================================================ */
+
+/* ── Tablet (≤ 960px) ─────────────────────────────────── */
+@media (max-width: 960px) {
+  .contact-title {
+    font-size: clamp(48px, 9vw, 96px);
+  }
+
+  .contact-item__value {
+    font-size: clamp(20px, 2.4vw, 36px);
+  }
+
+  .contact-item {
+    padding: 14px 16px;
+    gap: 14px;
+  }
+
+  .contact-item__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-links,
+  .contact-notify {
+    padding: 20px 20px 18px;
+  }
+}
+
+/* ── Mobile landscape / tablet pequeña (≤ 720px) ───────── */
+@media (max-width: 720px) {
+  .contacto-page {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .contact-main {
+    height: auto;
+    min-height: 100dvh;
+    overflow-y: visible;
+    padding: clamp(16px, 5vw, 32px) clamp(16px, 5vw, 28px);
+    gap: clamp(20px, 4vh, 32px);
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .contact-title {
+    font-size: clamp(44px, 13vw, 80px);
+    margin-bottom: 16px;
+  }
+
+  .contact-body {
+    font-size: clamp(14px, 3.8vw, 18px);
+    line-height: 1.65;
+  }
+
+  .contact-body br {
+    display: none;
+  }
+
+  .contact-item__value {
+    font-size: clamp(16px, 4.5vw, 28px);
+  }
+
+  /* Stickers más pequeños en tablet */
+  .sticker {
+    --sz: 100px;
+    width: var(--sz);
+    height: var(--sz);
+  }
+}
+
+/* ── Mobile portrait (≤ 480px) ────────────────────────── */
+@media (max-width: 480px) {
+  .contact-main {
+    padding: 16px 16px;
+    gap: 18px;
+  }
+
+  .contact-title {
+    font-size: clamp(40px, 14vw, 64px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .contact-eyebrow {
+    font-size: clamp(10px, 3vw, 13px);
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+  }
+
+  .contact-body {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+
+  .contact-section-title {
+    font-size: clamp(10px, 2.5vw, 13px);
+    margin-bottom: 14px;
+  }
+
+  .contact-links,
+  .contact-notify {
+    padding: 16px 14px 14px;
+    border-radius: 14px;
+    gap: 6px;
+  }
+
+  .contact-item {
+    padding: 12px 12px;
+    gap: 12px;
+    border-radius: 12px;
+  }
+
+  .contact-item__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .contact-item__icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact-item__value {
+    font-size: clamp(14px, 4vw, 22px);
+  }
+
+  .contact-item__label {
+    font-size: clamp(8px, 2vw, 10px);
+  }
+
+  .contact-item__arrow {
+    font-size: 16px;
+  }
+
+  .contact-notify__text {
+    font-size: clamp(13px, 3.5vw, 15px);
+    margin-bottom: 16px;
+  }
+
+  .notify-form__btn {
+    padding: 14px 18px;
+    font-size: clamp(11px, 3vw, 14px);
+  }
+
+  .notify-form__field input {
+    font-size: clamp(13px, 3.5vw, 16px);
+    padding: 18px 14px 8px;
+  }
+
+  .contact-footer {
+    font-size: clamp(8px, 2.2vw, 10px);
+    gap: 6px;
+  }
+
+  /* En móvil los stickers se reducen a la mitad y hay menos */
+  .sticker {
+    --sz: 72px;
+    width: var(--sz);
+    height: var(--sz);
+  }
+
+  /* Ocultar algunos stickers excedentes en móvil para no saturar */
+  #stickers-layer .sticker:nth-child(n + 12) {
+    display: none;
+  }
+}
+
+/* ── Preferencia de movimiento reducido ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .depth-grid,
+  .contact-title--holo,
+  .notify-form__btn::before {
+    animation: none;
+  }
+
+  .contact-item {
+    transition: none;
+  }
+}

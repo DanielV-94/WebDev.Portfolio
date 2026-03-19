@@ -4,16 +4,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#000000">
-  <title>Daniel Vélez | Portfolio</title>
+  <meta name="theme-color" content="#0b0b0b">
+
+  <!-- SEO primario -->
+  <title>Daniel Vélez | Diseñador & Desarrollador Web</title>
+  <meta name="description"
+    content="Portfolio de Daniel Vélez — Diseñador UX/UI, Desarrollador Frontend y Motion Designer con sede en México. Proyectos de diseño web, interfaces y animaciones. Disponible 2026.">
+  <meta name="keywords"
+    content="Daniel Vélez, portfolio, diseño web, desarrollo frontend, UX UI, motion graphics, animación web, México">
+  <meta name="author" content="Daniel Vélez">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://danielvelez.dev/">
+
+  <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://danielvelez.dev/">
+  <meta property="og:title" content="Daniel Vélez | Diseñador & Desarrollador Web">
+  <meta property="og:description"
+    content="Portfolio de Daniel Vélez — Diseñador UX/UI, Desarrollador Frontend y Motion Designer. Proyectos web, interfaces y animaciones.">
+  <meta property="og:image" content="https://danielvelez.dev/rsc/og-image.png">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Daniel Vélez Portfolio">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Daniel Vélez | Diseñador & Desarrollador Web">
+  <meta name="twitter:description"
+    content="Diseñador UX/UI, Desarrollador Frontend y Motion Designer. Proyectos web, interfaces y animaciones.">
+  <meta name="twitter:image" content="https://danielvelez.dev/rsc/og-image.png">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Daniel Vélez",
+    "url": "https://danielvelez.dev",
+    "sameAs": [
+      "https://github.com/DanielV-94",
+      "https://instagram.com/daniel_velez94"
+    ],
+    "jobTitle": "Diseñador & Desarrollador Web",
+    "description": "Diseñador UX/UI, Desarrollador Frontend y Motion Designer con sede en México.",
+    "email": "velez.4991.94@gmail.com"
+  }
+  </script>
+
   <link rel="stylesheet" href="style.css">
   <script src="node_modules/gsap/dist/gsap.min.js"></script>
   <script src="node_modules/gsap/dist/EasePack.min.js"></script>
-  <script src="node_modules/gsap/dist/ScrollTrigger.min.js"></script>
   <script src="script.js" defer></script>
 </head>
 
 <body>
+  <!-- Fondo de profundidad: Recurso 11 — debajo de TODO -->
+  <div class="bg-recurso" aria-hidden="true">
+    <img src="rsc/svg/Recurso 11.svg" alt="" />
+  </div>
+
   <div class="film-grain" aria-hidden="true"></div>
   <div class="holo-frame" aria-hidden="true"></div>
 
@@ -45,7 +93,7 @@
   </div>
 
   <!-- Botón Contacto -->
-  <a href="#contacto" class="btn-contacto">CONTACTO</a>
+  <a href="contacto.html" class="btn-contacto">CONTACTO</a>
 
   <div class="star-wrap star-l star-l--1">
     <div class="star star-inner"></div>

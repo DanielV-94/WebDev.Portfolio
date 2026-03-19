@@ -46,6 +46,16 @@ body {
   position: relative;
 }
 
+/* ── Fallback: visibles si GSAP no carga ── */
+.logo-daniel-wrap,
+.deco-bar-wrap,
+.star-wrap,
+.muy-pronto,
+.services,
+.btn-contacto {
+  opacity: 1;
+}
+
 /* ── Fondo de profundidad ─────────────────────────────── */
 .bg-recurso {
   position: fixed;

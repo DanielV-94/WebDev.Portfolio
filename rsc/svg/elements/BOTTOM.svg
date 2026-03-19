@@ -1,3 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1819.7 71.66" aria-hidden="true">
-  <path id="bar-top" fill="none" stroke="currentColor" stroke-width="6" d="M3,68.66h1813.7s0-2.21,0-2.21c0-35.04-17.98-63.45-40.16-63.45H43.16c-22.18,0-40.16,28.41-40.16,63.46v2.21Z"/>
+  <path id="bar-bottom" fill="currentColor" stroke="currentColor" stroke-width="1"
+    d="M3,68.66h1813.7s0-2.21,0-2.21c0-35.04-17.98-63.45-40.16-63.45H43.16c-22.18,0-40.16,28.41-40.16,63.46v2.21Z" />
 </svg>

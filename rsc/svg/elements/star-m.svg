@@ -1,3 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 414.05" aria-hidden="true">
-  <path id="star-medium" fill="none" fill-rule="evenodd" stroke="white" stroke-width="3" d="M207.02,414.05c0-203.87-3.15-207.02-207.02-207.02,203.87,0,207.02-3.15,207.02-207.02,0,203.87,3.15,207.02,207.02,207.02-203.87,0-207.02,3.15-207.02,207.02Z"/>
+  <path id="star-medium" fill="currentColor" fill-rule="evenodd" stroke="white" stroke-width="3"
+    d="M207.02,414.05c0-203.87-3.15-207.02-207.02-207.02,203.87,0,207.02-3.15,207.02-207.02,0,203.87,3.15,207.02,207.02,207.02-203.87,0-207.02,3.15-207.02,207.02Z" />
 </svg>

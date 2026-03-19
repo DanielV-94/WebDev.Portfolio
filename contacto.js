@@ -2,7 +2,7 @@
    Contacto — GSAP Draggable + InertiaPlugin + Entrada
    ============================================================ */
 
-gsap.registerPlugin(Draggable, InertiaPlugin);
+gsap.registerPlugin(Draggable);
 
 /* ─── Utilidades ────────────────────────────────────────── */
 const rand = (min, max) => Math.random() * (max - min) + min;
@@ -62,11 +62,10 @@ function initStickers() {
     // ── Draggable + Inertia ─────────────────────────────
     Draggable.create(el, {
       type: "x,y",
-      inertia: true,
       cursor: "grab",
       activeCursor: "grabbing",
-      zIndexBoost: true, // sube z-index al coger
-      edgeResistance: 0.65, // rebota suave en bordes
+      zIndexBoost: true,
+      edgeResistance: 0.65,
       bounds: window,
 
       onPress() {
@@ -118,9 +117,6 @@ function initStickers() {
         // Restablecer skew al terminar
         gsap.to(el, { skewX: 0, skewY: 0, duration: 0.4, ease: "power2.out" });
       },
-
-      // Reducir velocidad de inertia
-      throwProps: { type: "x,y", resistance: 580, maxDuration: 2.5 },
     });
 
     // ── Hover sutil cuando NO se arrastra ────────────────

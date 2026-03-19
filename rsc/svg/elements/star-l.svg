@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="uuid-ceae81a8-a73d-4f1c-b608-a6c866885702" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 577.55 577.55">
+  <defs>
+    <style>
+      .uuid-af2deccd-bf29-4727-90db-b88dd30ffb7a {
+        fill: none;
+        fill-rule: evenodd;
+        stroke: #000;
+        stroke-width: 4px;
+      }
+    </style>
+  </defs>
+  <g id="uuid-1c4901fe-2143-4f87-b304-ddcc7bdc937b" data-name="TOP">
+    <path id="uuid-287f1cba-95f1-4ba6-96e7-6ce4e2718419" data-name="star-l" class="uuid-af2deccd-bf29-4727-90db-b88dd30ffb7a" d="M288.78,577.55c0-284.38-4.4-288.78-288.78-288.78,284.38,0,288.78-4.4,288.78-288.78,0,284.38,4.4,288.78,288.78,288.78-284.38,0-288.78,4.4-288.78,288.78Z"/>
+  </g>
+</svg>

@@ -150,6 +150,9 @@ function initStickers() {
 function initEntrance() {
   const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+  // Forzar invisible antes de animar (el CSS los deja en opacity:1 como fallback)
+  gsap.set([".btn-back", ".contact-hero", ".contact-grid", ".contact-footer"], { opacity: 0 });
+
   tl.to(".btn-back", { opacity: 1, y: 0, duration: 0.5 })
     .fromTo(
       ".contact-hero",

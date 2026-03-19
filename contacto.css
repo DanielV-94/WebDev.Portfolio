@@ -484,12 +484,17 @@
 }
 
 /* ── Entrada animada ─────────────────────────────────── */
+/* opacity:1 por defecto como fallback si GSAP no carga */
 .contact-hero,
 .contact-grid,
 .contact-footer,
 .btn-back {
-  opacity: 0;
+  opacity: 1;
   will-change: transform, opacity;
+}
+/* GSAP sobreescribe a opacity:0 antes de animar — ver contacto.js */
+.js-animate {
+  opacity: 0;
 }
 
 /* ================================================================

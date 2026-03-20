@@ -12,9 +12,69 @@
 
 /* ── Reset página ─────────────────────────────────────── */
 .contacto-page {
-  overflow: hidden;
-  height: 100dvh;
+  /* Habilitamos scroll natural en la página */
+  min-height: 100dvh;
   cursor: default;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* ── Lines SVG acid de fondo ─────────────────────────── */
+.bg-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.14;
+  mix-blend-mode: screen;
+  overflow: hidden;
+  will-change: transform, filter;
+  /* filtro base: glow suave siempre activo */
+  filter: drop-shadow(0 0 18px rgba(150, 238, 255, 0.45))
+    drop-shadow(0 0 40px rgba(149, 255, 0, 0.35));
+  animation: linesGlow 6s ease-in-out infinite;
+}
+.bg-lines img {
+  /* Sobredimensionado para que el parallax tenga margen de movimiento */
+  width: 110%;
+  height: 110%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  /* Desplazamos el origen para centrar el overscan */
+  margin-left: -5%;
+  margin-top: -5%;
+}
+
+/* Pulso de glow entre cyan y verde ácido */
+@keyframes linesGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 18px rgba(150, 238, 255, 0.35))
+      drop-shadow(0 0 40px rgba(149, 255, 0, 0.18));
+  }
+  33% {
+    filter: drop-shadow(0 0 32px rgba(0, 255, 255, 0.55))
+      drop-shadow(0 0 60px rgba(110, 240, 164, 0.3));
+  }
+  66% {
+    filter: drop-shadow(0 0 24px rgba(149, 255, 0, 0.5))
+      drop-shadow(0 0 50px rgba(255, 0, 200, 0.2));
+  }
+}
+
+/* ── Textura overlay ─────────────────────────────────── */
+.texture-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("rsc/texture.png");
+  background-repeat: repeat;
+  background-size: 320px 320px;
 }
 
 /* ── Grid de profundidad ─────────────────────────────── */
@@ -59,9 +119,11 @@
 
 /* ── Capa de stickers ────────────────────────────────── */
 #stickers-layer {
-  position: fixed;
-  inset: 0;
-  /* Siempre sobre TODO el contenido — el usuario tiene que moverlos */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* hereda la altura completa del <main> que lo contiene */
   z-index: 1000;
   pointer-events: none;
 }
@@ -106,41 +168,77 @@
 
 /* ── Main layout ─────────────────────────────────────── */
 .contact-main {
-  position: relative;
-  z-index: 20; /* Los stickers (z:1000) siempre flotan encima */
-  height: 100dvh;
-  display: grid;
-  grid-template-rows: auto 1fr auto auto;
-  grid-template-columns: 1fr;
+  position: relative; /* ancla para #stickers-layer absolute */
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
   padding: clamp(24px, 4vw, 56px) clamp(24px, 6vw, 80px);
-  gap: clamp(16px, 2.5vh, 32px);
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
-  /* pointer-events activo para que el scroll funcione */
+  gap: clamp(64px, 12vh, 160px);
   pointer-events: auto;
+  padding-bottom: clamp(16px, 2vh, 32px);
 }
 
-/* ── Botón volver ────────────────────────────────────── */
+/* ── Botón volver (lo ocultamos por ahora si existiera) ─ */
 .btn-back {
-  display: inline-flex;
+  display: none;
+}
+
+/* ── Hero Introductorio ──────────────────────────────── */
+.intro-hero {
+  min-height: 80dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 8px;
+  text-align: center;
+  gap: 24px;
+}
+
+.intro-title {
   font-family: "Pronell", sans-serif;
-  font-size: clamp(12px, 1.2vw, 15px);
-  letter-spacing: 0.25em;
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
+  font-size: clamp(96px, 16vw, 320px);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.055em;
+  color: #fff;
   text-transform: uppercase;
-  transition: color 0.2s ease;
-  width: fit-content;
+  margin: 0;
 }
-.btn-back:hover {
-  color: #96eeff;
+
+.intro-title--holo {
+  background: var(--holo-gradient);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: holoShift 4s ease infinite;
 }
-.btn-back svg {
-  opacity: 0.7;
+
+.intro-year {
+  font-family: "Pizalio", sans-serif;
+  font-size: clamp(56px, 11vw, 210px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  display: block;
+  margin-top: 14px;
+  letter-spacing: -0.02em;
+}
+
+.intro-services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 40px;
+  margin-top: 32px;
+}
+
+.intro-services p {
+  font-family: "Pronell", sans-serif;
+  font-size: clamp(16px, 2vw, 28px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
 }
 
 /* ── Hero / invitación ───────────────────────────────── */
@@ -159,10 +257,10 @@
 
 .contact-title {
   font-family: "Pronell", sans-serif;
-  font-size: clamp(64px, 11vw, 148px);
+  font-size: clamp(80px, 13vw, 200px);
   font-weight: 900;
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+  line-height: 0.88;
+  letter-spacing: -0.055em;
   color: #fff;
   margin-bottom: 28px;
   text-transform: uppercase;
@@ -471,24 +569,26 @@
 /* ── Footer ──────────────────────────────────────────── */
 .contact-footer {
   display: flex;
-  gap: 10px;
+  gap: 6px;
   align-items: center;
   font-family: "Pronell", sans-serif;
-  font-size: clamp(9px, 0.85vw, 11px);
-  letter-spacing: 0.2em;
+  font-size: clamp(7px, 0.6vw, 9px);
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.88);
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 .contact-footer__sep {
-  opacity: 0.5;
+  opacity: 0.75;
 }
 
 /* ── Entrada animada ─────────────────────────────────── */
 /* opacity:1 por defecto como fallback si GSAP no carga */
+.intro-hero,
 .contact-hero,
 .contact-grid,
-.contact-footer,
-.btn-back {
+.contact-footer {
   opacity: 1;
   will-change: transform, opacity;
 }
@@ -582,6 +682,26 @@
     padding: clamp(16px, 5vw, 32px) clamp(16px, 5vw, 28px);
     gap: clamp(20px, 4vh, 32px);
     grid-template-rows: auto auto auto auto;
+    align-items: center;
+  }
+
+  .contact-hero {
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-eyebrow {
+    text-align: center;
+  }
+
+  .contact-body {
+    font-size: clamp(14px, 3.8vw, 18px);
+    line-height: 1.65;
+    text-align: center;
+    max-width: 100%;
   }
 
   .contact-grid {
@@ -592,11 +712,7 @@
   .contact-title {
     font-size: clamp(44px, 13vw, 80px);
     margin-bottom: 16px;
-  }
-
-  .contact-body {
-    font-size: clamp(14px, 3.8vw, 18px);
-    line-height: 1.65;
+    text-align: center;
   }
 
   .contact-body br {
@@ -619,27 +735,40 @@
   .contact-main {
     padding: 16px 16px;
     gap: 18px;
+    align-items: center;
+  }
+
+  .contact-hero {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
 
   .contact-title {
     font-size: clamp(40px, 14vw, 64px);
     line-height: 0.95;
     letter-spacing: -0.03em;
+    text-align: center;
   }
 
   .contact-eyebrow {
     font-size: clamp(10px, 3vw, 13px);
     letter-spacing: 0.2em;
     margin-bottom: 10px;
+    text-align: center;
   }
 
   .contact-body {
     font-size: clamp(13px, 3.5vw, 16px);
+    text-align: center;
   }
 
   .contact-section-title {
     font-size: clamp(10px, 2.5vw, 13px);
     margin-bottom: 14px;
+    text-align: center;
   }
 
   .contact-links,
@@ -681,6 +810,7 @@
   .contact-notify__text {
     font-size: clamp(13px, 3.5vw, 15px);
     margin-bottom: 16px;
+    text-align: center;
   }
 
   .notify-form__btn {
@@ -696,6 +826,7 @@
   .contact-footer {
     font-size: clamp(8px, 2.2vw, 10px);
     gap: 6px;
+    justify-content: center;
   }
 
   /* En móvil los stickers se reducen a la mitad y hay menos */

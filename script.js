@@ -1,167 +1,435 @@
 /* ============================================================
-   Daniel Vélez Portfolio — GSAP Animations
+   Contacto — GSAP Draggable + InertiaPlugin + Entrada
    ============================================================ */
-document.addEventListener("DOMContentLoaded", (event) => {
-  gsap.defaults({ ease: "power3.out" });
 
-  // ── Estados iniciales ────────────────────────────────────────
-  // Los wrappers son los que se animan (posición, opacidad, escala)
-  gsap.set(".logo-daniel-wrap", { xPercent: -50, opacity: 0, scale: 0.85 });
-  gsap.set(".btn-contacto", { xPercent: -50, opacity: 0, y: 18, scale: 0.9 });
-  gsap.set(".deco-bar-wrap--top", { opacity: 0, y: -60 });
-  gsap.set(".deco-bar-wrap--bottom", { opacity: 0, y: 60 });
-  gsap.set(".star-wrap", { opacity: 0, scale: 0 });
-  gsap.set(".muy-pronto", { opacity: 0, x: -20 });
-  gsap.set(".services", { opacity: 0, x: 20 });
+gsap.registerPlugin(Draggable, InertiaPlugin);
 
-  // ── Timeline de entrada ──────────────────────────────────────
-  const tl = gsap.timeline();
+/* ─── Utilidades ────────────────────────────────────────── */
+const rand = (min, max) => Math.random() * (max - min) + min;
+const randInt = (min, max) => Math.floor(rand(min, max + 1));
 
-  // 1) Barras
-  tl.to(".deco-bar-wrap--top", {
-    y: 0,
-    opacity: 1,
-    duration: 0.9,
-    ease: "back.out(1.4)",
-  }).to(
-    ".deco-bar-wrap--bottom",
-    { y: 0, opacity: 1, duration: 0.9, ease: "back.out(1.4)" },
-    "-=0.75",
-  );
+/* ─── 1. STICKERS: carga SVGs e inicializa Draggable ────── */
+function initStickers() {
+  const stickers = document.querySelectorAll(".sticker");
 
-  // 2) Estrellas: desde el centro expandiéndose, tiny → tamaño real
-  tl.to(
-    ".star-wrap",
+  // Grupos de tamaño: pequeño / mediano / grande / enorme
+  // Se asignan al azar para que cada sticker tenga un tamaño único
+  const sizeBuckets = [
+    [80, 120], // pequeño
+    [128, 176], // mediano
+    [184, 232], // grande
+    [240, 304], // enorme
+  ];
+
+  stickers.forEach((el, i) => {
+    const src = el.dataset.src;
+
+    // Tamaño completamente random: elige bucket al azar y luego valor dentro
+    const bucket = sizeBuckets[randInt(0, sizeBuckets.length - 1)];
+    const sz = Math.round(rand(bucket[0], bucket[1]));
+    el.style.setProperty("--sz", sz + "px");
+    el.style.width = sz + "px";
+    el.style.height = sz + "px";
+
+    // Inyectar imagen
+    const img = document.createElement("img");
+    img.src = src;
+    img.draggable = false;
+    el.appendChild(img);
+
+    // Z-index inicial aleatorio (sensación de apilamiento)
+    el.style.zIndex = randInt(10, 60);
+
+    // Rotación inicial aleatoria sutil
+    const initRot = rand(-25, 25);
+    gsap.set(el, { rotation: initRot, scale: rand(0.85, 1.1) });
+
+    // ── Entrada escalonada ──────────────────────────────
+    const finalScale = rand(0.85, 1.1);
+    gsap.fromTo(
+      el,
+      { opacity: 0, scale: 0, rotation: initRot + rand(-40, 40) },
+      {
+        opacity: 1,
+        scale: finalScale,
+        rotation: initRot,
+        duration: 0.6,
+        delay: 0.3 + i * 0.06 + rand(0, 0.2),
+        ease: "back.out(1.8)",
+      },
+    );
+
+    // ── Draggable + Inertia ────────────────────────────────
+    Draggable.create(el, {
+      type: "x,y",
+      inertia: true,
+      cursor: "grab",
+      activeCursor: "grabbing",
+      zIndexBoost: true,
+      edgeResistance: 0.65,
+      bounds: "#stickers-layer", // Extiende a toda la página ahora
+
+      onPress() {
+        // Traer al frente
+        this.target.style.zIndex = 9000;
+
+        el.classList.add("is-dragging");
+        gsap.to(el, {
+          scale: 1.18,
+          rotation: "+=8", // pequeño giro al agarrar
+          duration: 0.25,
+          ease: "back.out(2)",
+          overwrite: "auto",
+        });
+      },
+
+      onRelease() {
+        el.classList.remove("is-dragging");
+        el.classList.add("was-released");
+
+        // Ajustar z al soltar
+        el.style.zIndex = randInt(50, 200);
+
+        gsap.to(el, {
+          scale: rand(0.85, 1.1),
+          rotation: `+=${rand(-6, 6)}`, // pequeño rebote rotacional
+          duration: 0.5,
+          ease: "elastic.out(1, 0.45)",
+          overwrite: "auto",
+          onComplete() {
+            el.classList.remove("was-released");
+          },
+        });
+      },
+
+      onDrag() {
+        // Inclinación dinámica según velocidad
+        const tiltX = gsap.utils.clamp(-18, 18, this.velocityX * 0.04);
+        const tiltY = gsap.utils.clamp(-10, 10, this.velocityY * 0.02);
+        gsap.to(el, {
+          skewX: tiltX,
+          skewY: tiltY,
+          duration: 0.15,
+          overwrite: "auto",
+        });
+      },
+
+      onDragEnd() {
+        // Restablecer skew al terminar
+        gsap.to(el, { skewX: 0, skewY: 0, duration: 0.4, ease: "power2.out" });
+      },
+
+      // Deslizamiento con inercia al soltar
+      throwProps: { type: "x,y", resistance: 580, maxDuration: 2.5 },
+    });
+
+    // ── Hover sutil cuando NO se arrastra ────────────────
+    el.addEventListener("mouseenter", () => {
+      if (!el.classList.contains("is-dragging")) {
+        gsap.to(el, {
+          filter:
+            "drop-shadow(0 0 22px rgba(150,238,255,0.6)) drop-shadow(0 6px 28px rgba(0,0,0,0.8))",
+          duration: 0.25,
+          overwrite: "auto",
+        });
+      }
+    });
+    el.addEventListener("mouseleave", () => {
+      if (!el.classList.contains("is-dragging")) {
+        gsap.to(el, {
+          filter: "drop-shadow(0 4px 18px rgba(0,0,0,0.7))",
+          duration: 0.35,
+          overwrite: "auto",
+        });
+      }
+    });
+  });
+}
+
+/* ─── 2. ENTRADA del contenido ───────────────────────── */
+function initEntrance() {
+  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+  // Forzar invisible antes de animar
+  gsap.set(
+    [
+      ".intro-title",
+      ".intro-year",
+      ".intro-services p",
+      ".contact-hero",
+      ".contact-grid",
+      ".contact-footer",
+    ],
     {
-      opacity: 1,
-      scale: 1,
-      duration: 0.7,
-      ease: "back.out(2)",
-      stagger: { amount: 0.7, from: "center" },
+      opacity: 0,
     },
-    "-=0.3",
   );
 
-  // 3) Logo (wrapper centrado con xPercent, GSAP no rompe el left:50%)
-  tl.to(
-    ".logo-daniel-wrap",
-    { opacity: 1, scale: 1, duration: 1, ease: "back.out(1.2)" },
-    "-=0.3",
+  tl.fromTo(
+    ".intro-title",
+    { opacity: 0, scale: 0.9, y: 30 },
+    { opacity: 1, scale: 1, y: 0, duration: 1, ease: "back.out(1.5)" },
+  )
+    .fromTo(
+      ".intro-year",
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.7 },
+      "-=0.5",
+    )
+    .fromTo(
+      ".intro-services p",
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
+      "-=0.4",
+    )
+    .fromTo(
+      ".contact-hero",
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.75 },
+      "-=0.2",
+    )
+    .fromTo(
+      ".contact-grid",
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.7 },
+      "-=0.45",
+    )
+    .fromTo(
+      ".contact-footer",
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5 },
+      "-=0.3",
+    );
+
+  // Animar items de contacto con stagger
+  tl.fromTo(
+    ".contact-item",
+    { opacity: 0, x: -16 },
+    { opacity: 1, x: 0, duration: 0.45, stagger: 0.09 },
+    "<",
   );
+}
 
-  // 4) Muy Pronto + Servicios
-  tl.to(".muy-pronto", { opacity: 1, x: 0, duration: 0.7 }, "-=0.4").to(
-    ".services",
-    { opacity: 1, x: 0, duration: 0.7 },
-    "-=0.65",
-  );
+/* ─── 3. FORMULARIO de notificación ──────────────────── */
+function initForm() {
+  const form = document.getElementById("notifyForm");
+  const success = document.getElementById("formSuccess");
 
-  // 5) Botón
-  tl.to(
-    ".btn-contacto",
-    { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "back.out(1.5)" },
-    "-=0.3",
-  );
+  if (!form) return;
 
-  // ── Idle loops (arrancan al terminar la entrada) ─────────────
-  tl.then(() => {
-    // — MOVIMIENTO RANDOM por pantalla ─────────────────────────
-    // Cada star-wrap vaga de forma continua e independiente
-    function wanderStar(wrap) {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = document.getElementById("notifyEmail").value.trim();
 
-      const tx = gsap.utils.random(-vw * 0.25, vw * 0.25);
-      const ty = gsap.utils.random(-vh * 0.25, vh * 0.25);
-      const dur = gsap.utils.random(4, 9);
+    if (!email) return;
 
-      // Escala simula profundidad (lejos=pequeño, cerca=grande)
-      const sc = gsap.utils.random(0.2, 1.6);
-      const op = gsap.utils.mapRange(0.2, 1.6, 0.15, 1, sc);
-      const blur = gsap.utils.mapRange(0.2, 1.6, 4, 28, sc);
-      const shadowOp = gsap.utils.mapRange(0.2, 1.6, 0.2, 0.95, sc);
+    // Animación del botón al enviar
+    const btn = form.querySelector(".notify-form__btn");
+    gsap.to(btn, {
+      scale: 0.95,
+      duration: 0.1,
+      yoyo: true,
+      repeat: 1,
+      onComplete() {
+        success.textContent = "✓ ¡Listo! Te avisaré en cuanto esté listo.";
+        success.classList.add("visible");
+        form.reset();
 
-      gsap.to(wrap, {
-        x: tx,
-        y: ty,
-        scale: sc,
-        opacity: op,
-        filter: `drop-shadow(0 0 ${blur}px rgba(241, 255, 0.08, ${shadowOp})) drop-shadow(0 0 ${blur * 2}px rgba(150,238,255,${shadowOp * 0.6}))`,
-        duration: dur,
-        ease: "sine.inOut",
-        overwrite: false,
-        onComplete: () => wanderStar(wrap),
+        // Ocultar mensaje tras 5s
+        gsap.delayedCall(5, () => {
+          success.classList.remove("visible");
+        });
+      },
+    });
+  });
+}
+
+/* ─── 4. GRID parallax sutil con ratón ──────────────────── */
+function initGridParallax() {
+  const grid = document.querySelector(".depth-grid");
+  if (!grid) return;
+
+  window.addEventListener("mousemove", (e) => {
+    const mx = (e.clientX / window.innerWidth - 0.5) * 2;
+    const my = (e.clientY / window.innerHeight - 0.5) * 2;
+
+    gsap.to(grid, {
+      backgroundPositionX: `${50 + mx * 6}%`,
+      backgroundPositionY: `${50 + my * 6}%`,
+      duration: 2,
+      ease: "power1.out",
+    });
+  });
+}
+
+/* ─── 5. SCATTER — solo sacudida fuerte y sostenida dispersa los stickers ──── */
+function initScatterEffect() {
+  let lastX = 0,
+    lastY = 0;
+  let lastTime = 0;
+  let scatterCooldown = false;
+
+  // ── Parámetros de activación ──────────────────────────────────────────────
+  // HISTORY: cuántos frames consecutivos se promedian
+  const HISTORY = 18; // ventana más larga → necesita movimiento sostenido
+  // THRESHOLD: velocidad mínima promedio en px/ms para considerar "rápido"
+  const THRESHOLD = 9.0; // ~3× más alto que antes — el mouse casual no llega aquí
+  // MIN_FRAMES_ABOVE: cuántos de esos HISTORY frames deben estar POR ENCIMA del umbral
+  // Evita que un único pico instantáneo active el scatter
+  const MIN_FRAMES_ABOVE = 12; // al menos 12 de 18 frames deben ser rápidos
+  // COOLDOWN_MS: tiempo mínimo entre dos scatter consecutivos
+  const COOLDOWN_MS = 3500; // 3.5 s de "enfriamiento" después de cada activación
+  const speedHistory = [];
+
+  window.addEventListener("mousemove", (e) => {
+    const now = performance.now();
+    const dt = now - lastTime || 1;
+
+    const vx = (e.clientX - lastX) / dt;
+    const vy = (e.clientY - lastY) / dt;
+    const speed = Math.sqrt(vx * vx + vy * vy);
+
+    lastX = e.clientX;
+    lastY = e.clientY;
+    lastTime = now;
+
+    // Mantener historial de las últimas N velocidades
+    speedHistory.push(speed);
+    if (speedHistory.length > HISTORY) speedHistory.shift();
+
+    // Solo evaluar cuando el historial está lleno (no en los primeros frames)
+    if (speedHistory.length < HISTORY) return;
+
+    // Promedio de velocidad sostenida
+    const avgSpeed =
+      speedHistory.reduce((a, b) => a + b, 0) / speedHistory.length;
+
+    // Contar cuántos frames individuales superan el umbral
+    const framesAbove = speedHistory.filter((s) => s > THRESHOLD).length;
+
+    // Disparar solo si: promedio alto Y suficientes frames consecutivos rápidos
+    if (
+      avgSpeed > THRESHOLD &&
+      framesAbove >= MIN_FRAMES_ABOVE &&
+      !scatterCooldown
+    ) {
+      scatterCooldown = true;
+      speedHistory.length = 0; // resetear historial tras disparar
+      setTimeout(() => {
+        scatterCooldown = false;
+      }, COOLDOWN_MS);
+
+      const stickers = document.querySelectorAll(".sticker");
+      // Se obtienen las dimensiones del #stickers-layer
+      const layer = document.getElementById("stickers-layer");
+      const vw = layer.clientWidth;
+      const vh = layer.clientHeight;
+
+      stickers.forEach((el) => {
+        // No dispersar los que están siendo arrastrados
+        if (el.classList.contains("is-dragging")) return;
+
+        // Destino: cerca del borde más cercano al cursor,
+        // con algo de aleatoriedad para que no queden todos en el mismo sitio
+        const side = Math.random();
+        let tx, ty;
+        if (side < 0.25) {
+          // borde izquierdo
+          tx = rand(-vw * 0.55, -vw * 0.1);
+          ty = rand(-vh * 0.3, vh * 0.3);
+        } else if (side < 0.5) {
+          // borde derecho
+          tx = rand(vw * 0.1, vw * 0.55);
+          ty = rand(-vh * 0.3, vh * 0.3);
+        } else if (side < 0.75) {
+          // borde superior
+          tx = rand(-vw * 0.3, vw * 0.3);
+          ty = rand(-vh * 0.55, -vh * 0.1);
+        } else {
+          // borde inferior
+          tx = rand(-vw * 0.3, vw * 0.3);
+          ty = rand(vh * 0.1, vh * 0.55);
+        }
+
+        // Intensidad proporcional a la velocidad promedio del mouse
+        const intensity = gsap.utils.clamp(1, 3, avgSpeed / THRESHOLD);
+        tx *= intensity;
+        ty *= intensity;
+
+        gsap.to(el, {
+          x: tx,
+          y: ty,
+          opacity: rand(0.05, 0.18), // casi desaparecen
+          scale: rand(0.2, 0.5), // se encogen al irse
+          rotation: `+=${rand(-60, 60)}`,
+          duration: rand(0.7, 1.3),
+          ease: "power3.out",
+          overwrite: "auto",
+          // Quedan fuera un buen rato antes de volver
+          onComplete() {
+            gsap.to(el, {
+              x: rand(-vw * 0.08, vw * 0.08),
+              y: rand(-vh * 0.08, vh * 0.08),
+              opacity: 1,
+              scale: rand(0.85, 1.1),
+              rotation: `+=${rand(-20, 20)}`,
+              duration: rand(2.5, 4.5),
+              delay: rand(5, 11),
+              ease: "elastic.out(1, 0.45)",
+              overwrite: "auto",
+            });
+          },
+        });
       });
     }
+  });
+}
 
-    document.querySelectorAll(".star-wrap").forEach((wrap, i) => {
-      gsap.delayedCall(i * 0.18, () => wanderStar(wrap));
+/* ─── 6. PARALLAX del lines.svg ─────────────────────────── */
+function initLinesParallax() {
+  const lines = document.querySelector(".bg-lines");
+  if (!lines) return;
+
+  // .bg-lines es position: absolute dentro del <main>, por lo que
+  // ya acompaña el scroll naturalmente. Solo aplicamos parallax de mouse
+  // para dar sensación de profundidad al mover el cursor.
+
+  // ── Mouse parallax (ejes X e Y sutiles) ────────────────
+  const MOUSE_X = 18; // px máximos de desplazamiento horizontal
+  const MOUSE_Y = 22; // px máximos de desplazamiento vertical
+
+  window.addEventListener("mousemove", (e) => {
+    const mx = (e.clientX / window.innerWidth - 0.5) * 2; // -1 a 1
+    const my = (e.clientY / window.innerHeight - 0.5) * 2; // -1 a 1
+
+    gsap.to(lines, {
+      x: mx * MOUSE_X * -1,
+      y: my * MOUSE_Y * -1,
+      duration: 2.5,
+      ease: "power1.out",
+      overwrite: "auto",
     });
 
-    // — ROTACIÓN suave continua en algunas estrellas ──────────
-    // La rotación va en el wrapper para que el drop-shadow gire también
-    [
-      { sel: ".star-m--3", deg: 360, dur: 12 },
-      { sel: ".star-sm--2", deg: -360, dur: 9 },
-      { sel: ".star-sm--4", deg: 360, dur: 14 },
-      { sel: ".star-sm--6", deg: -360, dur: 11 },
-      { sel: ".star-l--1", deg: 360, dur: 16 },
-    ].forEach(({ sel, deg, dur }) => {
-      gsap.to(sel, {
-        rotation: deg,
-        duration: dur,
-        repeat: -1,
-        ease: "none",
-        delay: gsap.utils.random(0, 2),
-      });
-    });
+    // Intensificar el glow según velocidad del mouse
+    const speed = Math.sqrt(
+      e.movementX * e.movementX + e.movementY * e.movementY,
+    );
+    const glowIntensity = gsap.utils.clamp(0, 1, speed / 40);
+    const opacity = 0.14 + glowIntensity * 0.18; // entre 0.14 y 0.32
 
-    // — PARPADEO sutil en algunas ────────────────────────────
-    [".star-sm--1", ".star-m--2", ".star-l--2"].forEach((sel) => {
-      gsap.to(sel, {
-        opacity: 0.25,
-        duration: gsap.utils.random(1.4, 2.5),
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: gsap.utils.random(0, 2),
-      });
+    gsap.to(lines, {
+      opacity,
+      duration: 0.4,
+      ease: "power1.out",
+      overwrite: "auto",
     });
+  });
+}
 
-    // ── Hover magnético en star-wraps ───────────────────────
-    document.querySelectorAll(".star-wrap").forEach((wrap) => {
-      wrap.addEventListener("mousemove", (e) => {
-        const r = wrap.getBoundingClientRect();
-        const cx = r.left + r.width / 2;
-        const cy = r.top + r.height / 2;
-        const dx = (e.clientX - cx) * 0.55;
-        const dy = (e.clientY - cy) * 0.55;
-        gsap.to(wrap, {
-          x: `+=${dx}`,
-          y: `+=${dy}`,
-          scale: 1.5,
-          duration: 0.35,
-          ease: "power2.out",
-          overwrite: "auto",
-        });
-      });
-
-      wrap.addEventListener("mouseleave", () => {
-        gsap.to(wrap, {
-          scale: 1,
-          duration: 0.8,
-          ease: "elastic.out(1, 0.4)",
-          overwrite: "auto",
-          onComplete: () => wanderStar(wrap),
-        });
-      });
-    });
-
-    // Actualizar wander si cambia el tamaño de ventana
-    window.addEventListener("resize", () => {
-      document
-        .querySelectorAll(".star-wrap")
-        .forEach((wrap) => wanderStar(wrap));
-    });
-  }); // Cierre del DOMContentLoaded
-});
+/* ─── Init ───────────────────────────────────────────────── */
+initEntrance();
+initStickers();
+initForm();
+initGridParallax();
+initLinesParallax();
+initScatterEffect();

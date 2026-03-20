@@ -130,10 +130,10 @@ body {
     drop-shadow(0 8px 32px rgba(98, 255, 0, 0.3));
 }
 .deco-bar-wrap--top {
-  top: -20px;
+  top: -15px;
 }
 .deco-bar-wrap--bottom {
-  bottom: -20px;
+  bottom: -15px;
 }
 
 /* ── Inner de barras (lleva mask-image + background) ── */
@@ -399,7 +399,71 @@ body {
   }
 }
 
-/* ── Media queries responsive ── */
+/* ================================================================
+   MEDIA QUERIES — RESPONSIVE (2026)
+   Breakpoints estándar modernos:
+   xl:  ≤ 1280px  — laptops con pantalla pequeña
+   lg:  ≤ 1024px  — laptops landscape / tablets grandes
+   md:  ≤  768px  — tablets portrait
+   sm:  ≤  480px  — móviles portrait
+   xs:  ≤  375px  — móviles pequeños (iPhone SE, Galaxy A)
+   ================================================================ */
+
+/* ── XL · Laptop pantalla pequeña (≤ 1280px) ────────────── */
+@media (max-width: 1280px) {
+  .logo-daniel-wrap {
+    width: clamp(200px, 28vw, 380px);
+    height: clamp(140px, 19vw, 266px);
+  }
+
+  .btn-contacto {
+    width: clamp(120px, 13vw, 170px);
+    height: clamp(33px, 3.8vw, 48px);
+    font-size: clamp(0.9rem, 1.4vw, 1.3rem);
+  }
+}
+
+/* ── LG · Tablet landscape / laptop pequeña (≤ 1024px) ──── */
+@media (max-width: 1024px) {
+  .logo-daniel-wrap {
+    top: 6%;
+    width: clamp(220px, 40vw, 360px);
+    height: clamp(154px, 28vw, 252px);
+  }
+
+  .muy-pronto {
+    top: 52%;
+    left: 36%;
+  }
+
+  .muy-pronto-text,
+  .muy-pronto-year {
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+  }
+
+  .services {
+    top: 60%;
+    left: 48%;
+  }
+
+  .services p {
+    font-size: clamp(0.85rem, 1.5vw, 1.15rem);
+  }
+
+  .btn-contacto {
+    top: 85%;
+    width: clamp(130px, 16vw, 190px);
+    height: clamp(34px, 4.5vw, 52px);
+    font-size: clamp(0.9rem, 1.5vw, 1.3rem);
+  }
+
+  .deco-bar-wrap {
+    left: 7%;
+    width: 86%;
+  }
+}
+
+/* ── MD · Tablet portrait (≤ 768px) ─────────────────────── */
 @media (max-width: 768px) {
   html,
   body {
@@ -408,35 +472,57 @@ body {
 
   .logo-daniel-wrap {
     top: 6%;
-    width: clamp(180px, 72vw, 320px);
-    height: clamp(126px, 50vw, 224px);
+    width: clamp(280px, 82vw, 440px);
+    height: clamp(196px, 57vw, 308px);
   }
 
   .muy-pronto {
-    top: 52%;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 48%;
+    left: 0;
+    width: 100%;
+    align-items: center;
     text-align: center;
+  }
+  .muy-pronto-text,
+  .muy-pronto-year {
+    font-size: clamp(2.4rem, 6vw, 4rem);
   }
 
   .services {
-    top: 68%;
-    left: 50%;
-    text-align: center;
-    transform: translateX(-50%);
+    top: 65%;
+    left: 0;
+    width: 100%;
     align-items: center;
+    text-align: center;
+  }
+  .services p {
+    font-size: clamp(1.3rem, 3.2vw, 2rem);
+    line-height: 1.5;
   }
 
   .btn-contacto {
-    top: 84%;
-    width: clamp(120px, 44vw, 180px);
-    height: clamp(32px, 11vw, 50px);
-    font-size: clamp(0.85rem, 3.5vw, 1.2rem);
+    top: 85%;
+    width: clamp(160px, 44vw, 240px);
+    height: clamp(40px, 11.5vw, 62px);
+    font-size: clamp(1.1rem, 3.4vw, 1.7rem);
   }
 
   .deco-bar-wrap {
     left: 5%;
     width: 90%;
+  }
+
+  .star-l {
+    width: clamp(110px, 15vw, 180px);
+    height: clamp(110px, 15vw, 180px);
+  }
+  .star-m {
+    width: clamp(55px, 7.5vw, 95px);
+    height: clamp(55px, 7.5vw, 95px);
+  }
+  .star-sm {
+    width: clamp(22px, 2.8vw, 38px);
+    height: clamp(22px, 2.8vw, 38px);
   }
 
   .star-l--1 {
@@ -465,18 +551,87 @@ body {
   }
 }
 
+/* ── SM · Móvil portrait (≤ 480px) ──────────────────────── */
 @media (max-width: 480px) {
+  .logo-daniel-wrap {
+    top: 5%;
+    width: clamp(260px, 88vw, 360px);
+    height: clamp(182px, 62vw, 252px);
+  }
+
+  .muy-pronto {
+    top: 44%;
+  }
   .muy-pronto-text,
   .muy-pronto-year {
-    font-size: clamp(1.2rem, 5.5vw, 2rem);
+    font-size: clamp(2.6rem, 11vw, 4rem);
   }
 
   .services {
-    font-size: clamp(0.72rem, 3.2vw, 0.95rem);
-    top: 70%;
+    top: 62%;
+  }
+  .services p {
+    font-size: clamp(1.4rem, 6.5vw, 2.2rem);
+    line-height: 1.5;
   }
 
   .btn-contacto {
-    top: 86%;
+    top: 83%;
+    width: clamp(150px, 52vw, 220px);
+    height: clamp(38px, 13vw, 56px);
+    font-size: clamp(1rem, 4.5vw, 1.5rem);
+  }
+
+  .star-l {
+    width: clamp(90px, 22vw, 140px);
+    height: clamp(90px, 22vw, 140px);
+  }
+  .star-m {
+    width: clamp(44px, 11vw, 70px);
+    height: clamp(44px, 11vw, 70px);
+  }
+  .star-sm {
+    width: clamp(18px, 4.5vw, 30px);
+    height: clamp(18px, 4.5vw, 30px);
+  }
+}
+
+/* ── XS · Móvil pequeño (≤ 375px) ───────────────────────── */
+@media (max-width: 375px) {
+  .logo-daniel-wrap {
+    width: clamp(220px, 92vw, 300px);
+    height: clamp(154px, 64vw, 210px);
+  }
+
+  .muy-pronto {
+    top: 42%;
+  }
+  .muy-pronto-text,
+  .muy-pronto-year {
+    font-size: clamp(2.2rem, 12vw, 3.2rem);
+  }
+
+  .services {
+    top: 60%;
+  }
+  .services p {
+    font-size: clamp(1.2rem, 7vw, 1.8rem);
+  }
+
+  .btn-contacto {
+    top: 82%;
+    width: clamp(140px, 56vw, 200px);
+    height: clamp(36px, 14vw, 52px);
+    font-size: clamp(0.95rem, 5vw, 1.3rem);
+  }
+}
+
+/* ── Preferencia de movimiento reducido ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .film-grain,
+  .deco-bar,
+  .logo-daniel,
+  .btn-contacto {
+    animation: none;
   }
 }

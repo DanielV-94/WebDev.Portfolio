@@ -1,43 +1,49 @@
 # Daniel Vélez — Portfolio Web
 
-> Sitio "coming soon" + página de contacto con stickers arrastrables, animaciones holográficas y efectos de profundidad.
+> Sitio de una sola página "coming soon" + contacto, con stickers arrastrables, animaciones holográficas y efectos de profundidad.
 
 ---
 
 ## 📋 Descripción
 
-Portfolio personal de **Daniel Vélez**, diseñador UX/UI, desarrollador frontend y motion designer con sede en México. El sitio está compuesto por dos páginas:
+Portfolio personal de **Daniel Vélez**, diseñador UX/UI, desarrollador frontend y motion designer con sede en México. El sitio es una única página que reúne el hero introductorio y la sección de contacto:
 
-| Página                 | Archivo         | Propósito                                                      |
-| ---------------------- | --------------- | -------------------------------------------------------------- |
-| Landing _"Muy Pronto"_ | `index.html`    | Página principal con efectos holográficos y estrellas animadas |
-| Contacto               | `contacto.html` | Página interactiva con stickers arrastrables y formulario      |
+| Sección                  | Propósito                                                         |
+| ------------------------ | ----------------------------------------------------------------- |
+| Hero _"Muy Pronto 2026"_ | Tipografía holográfica, listado de servicios y entrada animada    |
+| Contacto                 | Stickers arrastrables, links, formulario de notificación de lanzamiento |
 
 ---
 
 ## ✨ Características principales
 
-### `index.html` — Landing page
+### Hero introductorio
 
-- **Tipografía holográfica** con gradiente animado (verde-cian-lima)
-- **Estrellas animadas** con movimiento wandering, parallax magnético al hover y efecto de profundidad
-- **Barras decorativas** SVG con entrada animada
-- **Fondo de profundidad** — `Recurso 11.svg` como capa fija con `mix-blend-mode: screen`
-- **Film grain** animado para textura cinematográfica
-- Botón de acceso a la página de contacto
+- **Tipografía holográfica** con gradiente animado (cian-lima-verde)
+- **Entrada escalonada** con GSAP (título, año, servicios, sección de contacto)
+- Listado de servicios: Programación Web · Diseño UX/UI · Motion Graphics
 
-### `contacto.html` — Página de contacto
+### Stickers & interacciones
 
-- **39 stickers SVG arrastrables** con física de inercia (GSAP Draggable + InertiaPlugin)
-  - Tamaños aleatorios en cada carga (4 buckets: 100–380px)
+- **31 stickers SVG arrastrables** con física de inercia (GSAP Draggable + InertiaPlugin)
+  - Tamaños aleatorios en cada carga (4 buckets: 80–304 px)
   - Inclinación dinámica según velocidad al arrastrar
   - Siempre sobre el contenido — el usuario debe moverlos para leer
-- **Efecto scatter**: si el mouse se mueve muy rápido, los stickers huyen a los bordes y regresan solos (5–11s)
+- **Efecto scatter**: si el mouse se mueve muy rápido y de forma sostenida, los stickers huyen a los bordes y regresan solos (5–11 s, cooldown 3.5 s)
+- **Hover** con efecto de glow cian al pasar el cursor sobre cada sticker
+
+### Contacto & formulario
+
 - **Glassmorphism** en paneles de contacto y formulario
 - **Links directos**: Email, WhatsApp, Instagram, GitHub
-- **Formulario de notificación** de lanzamiento
-- **Grid de profundidad** con parallax sutil al mover el mouse
+- **Formulario de notificación** de lanzamiento (validación + feedback animado)
 - **Fuente Pizalio** en los valores de contacto
+
+### Efectos de fondo
+
+- **Grid de profundidad** con parallax sutil al mover el mouse
+- **Lines SVG** (`lines.svg`) con parallax independiente e intensidad de glow reactiva al movimiento
+- **Textura overlay** (`texture.png`) para acabado cinematográfico
 
 ---
 
@@ -45,11 +51,11 @@ Portfolio personal de **Daniel Vélez**, diseñador UX/UI, desarrollador fronten
 
 | Tecnología                 | Uso                                                |
 | -------------------------- | -------------------------------------------------- |
-| HTML5 semántico            | Estructura de ambas páginas                        |
+| HTML5 semántico            | Estructura de la página                            |
 | CSS3                       | Estilos, animaciones, glassmorphism, media queries |
 | JavaScript ES6+            | Lógica de animaciones e interacciones              |
-| [GSAP 3](https://gsap.com) | Animaciones, Draggable, InertiaPlugin, EasePack    |
-| SVG                        | Logo, estrellas, barras decorativas, 39 stickers   |
+| [GSAP 3](https://gsap.com) | Animaciones, Draggable, InertiaPlugin (local)      |
+| SVG                        | Logo, lines decorativas, 31 stickers arrastrables  |
 
 ### Tipografías
 
@@ -62,21 +68,26 @@ Portfolio personal de **Daniel Vélez**, diseñador UX/UI, desarrollador fronten
 
 ```
 WebDev.Portfolio/
-├── index.html          # Landing "Muy Pronto"
-├── style.css           # Estilos globales compartidos
-├── script.js           # Animaciones GSAP para index
-├── contacto.html       # Página de contacto
-├── contacto.css        # Estilos de contacto + media queries
-├── contacto.js         # Stickers, scatter, parallax, formulario
-├── package.json
+├── index.html          # Página única: hero "Muy Pronto" + contacto
+├── style.css           # Estilos globales (fuentes, variables, keyframes)
+├── contacto.css        # Estilos del layout, stickers y media queries
+├── script.js           # Stickers, scatter, parallax, formulario (GSAP)
 ├── README.md
+├── js/
+│   ├── gsap.min.js
+│   ├── Draggable.min.js
+│   ├── InertiaPlugin.min.js
+│   └── EaselPlugin.min.js
 └── rsc/
+    ├── texture.png
     ├── pronell/Pronell.otf
     ├── pizalio-font/pizalio.otf
     └── svg/
-        ├── Recurso 11.svg      # Fondo de profundidad
-        ├── elements/           # Logo, barras, botón, estrellas
-        └── stickers/           # 39 stickers SVG arrastrables
+        ├── elements/
+        │   ├── DANIEL.svg          # Logo / wordmark
+        │   ├── lines.svg           # Lines decorativas de fondo
+        │   └── recurso-11.svg      # Fondo de profundidad
+        └── stickers/               # 31 stickers SVG arrastrables
 ```
 
 ---
@@ -88,10 +99,7 @@ WebDev.Portfolio/
 git clone https://github.com/DanielV-94/WebDev.Portfolio.git
 cd WebDev.Portfolio
 
-# 2. Instalar dependencias (GSAP local)
-npm install
-
-# 3. Abrir con servidor local (Five Server / Live Server en VS Code)
+# 2. Abrir con servidor local (Five Server / Live Server en VS Code)
 #    Navegar a index.html
 ```
 
